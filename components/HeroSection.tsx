@@ -176,7 +176,7 @@ export default function HeroSection() {
         </h1>
         <p className="hero-sub" ref={subRef}>
           Petware Ltd has been stocking New Zealand&apos;s pet industry with trusted wholesale
-          brands across dogs, cats, birds, fish, reptiles, and small animals —
+          brands across dogs, cats, birds, fish, reptiles, and small animals,
           delivered nationwide.
         </p>
         <div className="hero-actions" ref={actionsRef}>

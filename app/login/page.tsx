@@ -16,12 +16,6 @@ export default function LoginPage() {
       <div className="login-bg" />
 
       <div className="login-card">
-        {/* Logo */}
-        <div className="login-logo-wrap">
-          <Link href="/" className="login-logo">Petware</Link>
-          <span className="login-logo-sub">Wholesale Trade Portal</span>
-        </div>
-
         <div className="login-box">
           <h1 className="login-heading">Trade Login</h1>
 

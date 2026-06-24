@@ -14,15 +14,28 @@ export const metadata: Metadata = {
 const BENEFITS = [
   'Wholesale pricing across 8 categories',
   '100+ internationally recognised brands',
-  'NZ-wide delivery — fast turnaround',
+  'NZ-wide delivery, fast turnaround',
   'Dedicated sales account manager',
   'Online trade portal access',
   'Flexible minimum order quantities',
 ]
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home',                   item: 'https://petware.co.nz' },
+    { '@type': 'ListItem', position: 2, name: 'Apply for Trade Account', item: 'https://petware.co.nz/trade-account' },
+  ],
+}
+
 export default function TradeAccountPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <RevealWrapper />
 
       <SubpageHero
@@ -45,7 +58,7 @@ export default function TradeAccountPage() {
             </h2>
             <p className="about-body reveal d2" style={{ marginTop: '1.5rem' }}>
               Trade accounts give you access to wholesale pricing across our full catalogue,
-              dedicated account management, and flexible ordering — built for NZ pet businesses.
+              dedicated account management, and flexible ordering built for NZ pet businesses.
             </p>
 
             <ul className="ta-benefit-list reveal d3">

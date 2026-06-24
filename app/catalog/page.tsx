@@ -6,7 +6,7 @@ import CatalogGrid from '@/components/CatalogGrid'
 export const metadata: Metadata = {
   title: 'Product Catalogue — Wholesale Pet Supplies NZ | Petware Ltd',
   description:
-    "Browse Petware Ltd's full wholesale catalogue across eight categories — dogs, cats, fish, reptiles, birds, grooming and more. Available to registered NZ trade accounts.",
+    "Browse Petware Ltd's full wholesale catalogue across eight categories: dogs, cats, fish, reptiles, birds, grooming and more. Available to registered NZ trade accounts.",
   alternates: { canonical: 'https://petware.co.nz/catalog' },
   openGraph: {
     title: 'Product Catalogue — Petware Ltd',
@@ -23,9 +23,22 @@ export const metadata: Metadata = {
   },
 }
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://petware.co.nz' },
+    { '@type': 'ListItem', position: 2, name: 'Catalogue', item: 'https://petware.co.nz/catalog' },
+  ],
+}
+
 export default function CatalogPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <RevealWrapper />
       <CatalogHero />
       <CatalogGrid />

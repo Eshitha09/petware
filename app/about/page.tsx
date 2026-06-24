@@ -12,9 +12,22 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://petware.co.nz/about' },
 }
 
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://petware.co.nz' },
+    { '@type': 'ListItem', position: 2, name: 'About Us', item: 'https://petware.co.nz/about' },
+  ],
+}
+
 export default function AboutPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <RevealWrapper />
 
       <SubpageHero
@@ -40,13 +53,14 @@ export default function AboutPage() {
               Over three decades, that mission hasn&apos;t changed.
             </p>
             <p className="about-body reveal d2" style={{ marginTop: '1rem' }}>
-              Today we represent over 100 trusted international and domestic brands across every
-              pet category — serving pet retailers, grooming salons, veterinary practices, and
-              aquarium specialists throughout New Zealand.
+              Today we represent trusted international and domestic brands across every
+              pet category, serving pet retailers, grooming salons, veterinary practices, and
+              aquarium specialists throughout New Zealand. Our range includes Pawise, Vetcare,
+              Juwel, Aqua Zonic, Red Sea Reefer, Ocean Max, Pet Corrector, and many more.
             </p>
             <div className="about-contacts reveal d3">
               <a href="tel:0800800135">0800 800 135</a>
-              <a href="mailto:accounts@petware.co.nz">accounts@petware.co.nz</a>
+              <a href="mailto:petware@petware.co.nz">petware@petware.co.nz</a>
             </div>
           </div>
 

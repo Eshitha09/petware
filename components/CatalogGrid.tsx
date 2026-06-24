@@ -24,64 +24,72 @@ const categories = [
     tag: 'Most Popular',
     title: 'Dogs & Cats',
     sub: 'Essentials',
-    desc: 'Food, accessories, health treatments, leads, collars, beds — your complete dog and cat range in one wholesale order.',
-    img: 'photo-1552053831-71594a27632d',
+    desc: 'Food, accessories, health treatments, leads, collars, beds: your complete dog and cat range in one wholesale order.',
+    img: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=1400&q=90&fit=crop',
+    href: '/catalog/dogs-cats',
     wide: true,
   },
   {
     tag: 'High Volume',
     title: 'Food Range',
     sub: 'Cat & Dog',
-    desc: 'Premium brands at wholesale pricing. Bulk quantities for high-volume retailers.',
-    img: 'photo-1587300003388-59208cc962cb',
+    desc: 'Premium nutritionally-complete formulas at wholesale pricing. Bulk quantities for high-volume retailers.',
+    img: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=1400&q=90&fit=crop',
+    href: '/catalog/food',
     wide: false,
   },
   {
     tag: 'Aquatic',
     title: 'Fish & Aquatic',
     sub: 'Tanks & More',
-    desc: 'Tanks, filters, food, treatments, and décor for aquarium specialists.',
-    img: 'photo-1520301255226-bf5f144451c1',
+    desc: 'Juwel, Aqua Zonic, Red Sea Reefer, and Ocean Max. Tanks, filters, food, and marine salts.',
+    img: 'https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=1400&q=90&fit=crop',
+    href: '/catalog/aquatic',
     wide: false,
   },
   {
     tag: 'Specialist',
     title: 'Reptile',
     sub: 'Supplies',
-    desc: 'Lighting, heating, habitats, and food for exotic pet retailers.',
-    img: 'OVxfmbKtzaA', // monitor lizard ✓
+    desc: 'UVB lamps, heat projectors, complete habitat kits, and supplements for exotic pet retailers.',
+    img: 'https://images.unsplash.com/photo-1591824438708-ce405f36ba3d?w=1400&q=90&fit=crop',
+    href: '/catalog/reptile',
     wide: false,
   },
   {
     tag: 'Popular',
     title: 'Bird',
     sub: 'Supplies',
-    desc: 'Seed, cages, perches, toys, and health products for all bird varieties.',
-    img: 'photo-1522926193341-e9ffd686c60f',
+    desc: 'Seed mixes, cages, perches, toys, and health products for parrots, canaries, and all bird varieties.',
+    img: 'https://images.unsplash.com/photo-1522926193341-e9ffd686c60f?w=1400&q=90&fit=crop',
+    href: '/catalog/birds',
     wide: false,
   },
   {
     tag: 'Grooming',
     title: 'Commercial',
     sub: 'Grooming',
-    desc: 'Professional shampoos, conditioners, tools, and equipment for grooming salons.',
-    img: 'photo-1548199973-03cce0bbc87b',
+    desc: 'Professional shampoos, conditioners, brushes, and salon equipment for grooming businesses.',
+    img: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1400&q=90&fit=crop',
+    href: '/catalog/grooming',
     wide: false,
   },
   {
     tag: 'Cat Litter',
     title: 'Cat Litter',
     sub: 'Range',
-    desc: 'Clumping, crystal, and natural litters in bulk for high-turnover pet stores.',
-    img: 'photo-1543466835-00a7907e9de1',
+    desc: 'Clumping, crystal, natural, and eco litters in bulk cases for high-turnover pet stores.',
+    img: 'https://images.unsplash.com/photo-1574144113084-b6f450cc5e30?w=1400&q=90&fit=crop',
+    href: '/catalog/cat-litter',
     wide: false,
   },
   {
     tag: 'Small Animals',
     title: 'Small',
     sub: 'Animals',
-    desc: 'Rabbits, guinea pigs, hamsters — food, bedding, housing, and enrichment.',
-    img: 'photo-1425082661705-1834bfd09dca',
+    desc: 'Rabbits, guinea pigs, hamsters: hutches, bedding, food, wheels, and health treatments.',
+    img: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=1400&q=90&fit=crop',
+    href: '/catalog/small-animals',
     wide: false,
   },
 ]
@@ -172,11 +180,13 @@ export default function CatalogGrid() {
             key={i}
             ref={el => { cardRefs.current[i] = el }}
             className={`cg-card${cat.wide ? ' cg-wide' : ''}`}
+            onClick={() => window.location.href = cat.href}
+            style={{ cursor: 'pointer' }}
           >
             {/* Background image — GSAP drives parallax + filter */}
             <img
               className="cg-img"
-              src={`https://images.unsplash.com/${cat.img}?w=1200&q=85&fit=crop`}
+              src={cat.img}
               alt={`${cat.title} ${cat.sub}`}
               loading="lazy"
             />

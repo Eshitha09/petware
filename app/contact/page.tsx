@@ -11,14 +11,27 @@ export const metadata: Metadata = {
 }
 
 const CONTACTS = [
-  { label: 'Phone', value: '0800 800 135', href: 'tel:0800800135', note: 'Weekdays 8am – 5pm NZST' },
+  { label: 'Phone', value: '0800 800 135', href: 'tel:0800800135', note: 'Weekdays 10am – 3pm NZST' },
   { label: 'Sales', value: 'accounts@petware.co.nz', href: 'mailto:accounts@petware.co.nz', note: 'New accounts and product enquiries' },
-  { label: 'Accounts', value: 'petware@petware.co.nz', href: 'mailto:petware@petware.co.nz', note: 'Invoices and account queries' },
+  { label: 'General', value: 'petware@petware.co.nz', href: 'mailto:petware@petware.co.nz', note: 'General enquiries and invoices' },
 ]
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home',    item: 'https://petware.co.nz' },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: 'https://petware.co.nz/contact' },
+  ],
+}
 
 export default function ContactPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <RevealWrapper />
 
       <SubpageHero

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { cookies } from 'next/headers'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/app/lib/auth'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import PortalLogout from '@/components/PortalLogout'
@@ -11,11 +12,11 @@ export const metadata: Metadata = {
 }
 
 const QUICK_ORDER = [
-  { cat: 'Dog & Cat', img: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&q=80&fit=crop', href: '/catalog' },
-  { cat: 'Food Range', img: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80&fit=crop', href: '/catalog' },
+  { cat: 'Dog & Cat',     img: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400&q=80&fit=crop',  href: '/catalog' },
+  { cat: 'Food Range',    img: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80&fit=crop', href: '/catalog' },
   { cat: 'Bird Supplies', img: 'https://images.unsplash.com/photo-1522926193341-e9ffd686c60f?w=400&q=80&fit=crop', href: '/catalog' },
-  { cat: 'Aquatic', img: 'https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=400&q=80&fit=crop', href: '/catalog' },
-  { cat: 'Reptile', img: 'https://images.unsplash.com/OVxfmbKtzaA?w=400&q=80&fit=crop', href: '/catalog' },
+  { cat: 'Aquatic',       img: 'https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=400&q=80&fit=crop', href: '/catalog' },
+  { cat: 'Reptile',       img: 'https://images.unsplash.com/OVxfmbKtzaA?w=400&q=80&fit=crop',                      href: '/catalog' },
   { cat: 'Small Animals', img: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=400&q=80&fit=crop', href: '/catalog' },
 ]
 
@@ -26,12 +27,10 @@ const RECENT_ORDERS = [
 ]
 
 export default async function PortalPage() {
-  // Server-side auth check — middleware also guards this but belt & braces
-  const cookieStore = await cookies()
-  const session     = cookieStore.get('pw_trade_session')
-  if (!session?.value) redirect('/login?next=/portal')
+  const session = await getServerSession(authOptions)
+  if (!session) redirect('/login?next=/portal')
 
-  const email = session.value
+  const email = session.user?.email ?? 'Trade Account'
 
   return (
     <div className="portal-page">
@@ -61,9 +60,9 @@ export default async function PortalPage() {
         <div className="portal-stats">
           {[
             { num: '$10,420', label: 'Total spent (YTD)' },
-            { num: '3', label: 'Orders this month' },
-            { num: '6', label: 'Active categories' },
-            { num: '1 day', label: 'Avg. delivery time' },
+            { num: '3',       label: 'Orders this month' },
+            { num: '6',       label: 'Active categories' },
+            { num: '1 day',   label: 'Avg. delivery time' },
           ].map((s, i) => (
             <div key={i} className="portal-stat">
               <div className="portal-stat-num">{s.num}</div>

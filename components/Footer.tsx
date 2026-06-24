@@ -5,11 +5,12 @@ export default function Footer() {
       <div>
         <Link className="ft-logo" href="/">Petware</Link>
         <span className="ft-sub">Quality Wholesale Pet Supplies</span>
-        <p className="ft-body">New Zealand&apos;s leading full-line wholesale pet supplier. Trusted by pet retailers, groomers, and specialists nationwide.</p>
+        <p className="ft-body">New Zealand&apos;s full-line wholesale pet supplier. Trusted by pet retailers, groomers, aquarium specialists, and veterinary practices nationwide.</p>
         <div className="ft-contacts">
           <a href="tel:0800800135">0800 800 135</a>
           <a href="mailto:petware@petware.co.nz">petware@petware.co.nz</a>
         </div>
+        <p style={{ fontSize: '.72rem', color: 'rgba(247,245,240,.2)', marginTop: '.75rem' }}>Mon – Fri, 10am – 3pm NZST · Auckland, NZ</p>
       </div>
       <div className="ft-col">
         <h4>Categories</h4>
@@ -37,8 +38,8 @@ export default function Footer() {
           <li><Link href="/about">About Us</Link></li>
           <li><Link href="/trade-account">Apply for Account</Link></li>
           <li><Link href="/contact">Contact</Link></li>
-          <li><Link href="#">Terms &amp; Conditions</Link></li>
-          <li><Link href="#">Privacy Policy</Link></li>
+          <li><Link href="/terms">Terms &amp; Conditions</Link></li>
+          <li><Link href="/privacy">Privacy Policy</Link></li>
         </ul>
       </div>
       <div className="ft-bottom">

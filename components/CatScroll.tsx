@@ -5,10 +5,10 @@ const cats = [
   { tag: 'Most Popular', title: 'Dog & Cat Essentials', img: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=700&q=80&fit=crop' },
   { tag: 'High Volume', title: 'Food Range', img: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=700&q=80&fit=crop' },
   { tag: 'Aquatic', title: 'Fish & Aquatic', img: 'https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=700&q=80&fit=crop' },
-  { tag: 'Specialist', title: 'Reptile Supplies', img: 'https://images.unsplash.com/OVxfmbKtzaA?w=700&q=80&fit=crop' },
+  { tag: 'Specialist', title: 'Reptile Supplies', img: 'https://www.terrariumquest.com/wp-content/uploads/2022/09/29867804_leopard-gecko-in-closeup-popular-tropical-reptile-specie-from-asia-e1664585163502-768x512.jpg' },
   { tag: 'Popular', title: 'Bird Supplies', img: 'https://images.unsplash.com/photo-1522926193341-e9ffd686c60f?w=700&q=80&fit=crop' },
   { tag: 'Grooming', title: 'Commercial Grooming', img: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=700&q=80&fit=crop&crop=left' },
-  { tag: 'Cat Litter', title: 'Cat Litter Range', img: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=700&q=80&fit=crop' },
+  { tag: 'Cat Litter', title: 'Cat Litter Range', img: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=700&q=80&fit=crop&crop=face' },
   { tag: 'Small Animals', title: 'Small Animals', img: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=700&q=80&fit=crop' },
 ]
 

@@ -11,7 +11,7 @@ import PillarsSection from '@/components/PillarsSection'
 export const metadata: Metadata = {
   title: "Petware Ltd — NZ's Leading Wholesale Pet Supplies",
   description:
-    "New Zealand's full-line wholesale pet supplier. Trusted brands across dogs, cats, birds, fish, reptiles, and small animals — delivered nationwide.",
+    "New Zealand's full-line wholesale pet supplier. Trusted brands across dogs, cats, birds, fish, reptiles, and small animals, delivered nationwide.",
   alternates: { canonical: 'https://petware.co.nz' },
   openGraph: {
     title: "Petware Ltd — NZ's Leading Wholesale Pet Supplies",
@@ -141,7 +141,7 @@ export default function HomePage() {
           </div>
           <div className="review-card reveal d2">
             <div className="stars">★★★★★</div>
-            <blockquote>Setting up our trade account was simple — the sales manager walked us through everything and stock arrived faster than expected. Great first impression.</blockquote>
+            <blockquote>Setting up our trade account was simple. The sales manager walked us through everything and stock arrived faster than expected. Great first impression.</blockquote>
             <div className="reviewer">
               <div className="rev-avatar"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&fit=crop&crop=face" alt="Aroha W." loading="lazy" /></div>
               <div><div className="rev-name">Aroha W.</div><div className="rev-role">New Pet Retailer · Hamilton</div></div>

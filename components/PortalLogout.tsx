@@ -1,16 +1,12 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 
 export default function PortalLogout() {
-  const router = useRouter()
-
-  async function logout() {
-    await fetch('/api/auth', { method: 'DELETE' })
-    router.push('/')
-  }
-
   return (
-    <button onClick={logout} className="portal-logout-btn">
+    <button
+      onClick={() => signOut({ callbackUrl: '/' })}
+      className="portal-logout-btn"
+    >
       Sign Out
     </button>
   )
