@@ -4,6 +4,7 @@ import { authOptions } from '@/app/lib/auth'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import PortalLogout from '@/components/PortalLogout'
+import { jiwa } from '@/lib/jiwa'
 
 export const metadata: Metadata = {
   title: 'Trade Portal — Petware Ltd',
@@ -16,21 +17,53 @@ const QUICK_ORDER = [
   { cat: 'Food Range',    img: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80&fit=crop', href: '/catalog' },
   { cat: 'Bird Supplies', img: 'https://images.unsplash.com/photo-1522926193341-e9ffd686c60f?w=400&q=80&fit=crop', href: '/catalog' },
   { cat: 'Aquatic',       img: 'https://images.unsplash.com/photo-1520301255226-bf5f144451c1?w=400&q=80&fit=crop', href: '/catalog' },
-  { cat: 'Reptile',       img: 'https://images.unsplash.com/OVxfmbKtzaA?w=400&q=80&fit=crop',                      href: '/catalog' },
+  { cat: 'Reptile',       img: 'https://images.unsplash.com/OVxfmbKtzaA?w=400&q=80&fit=crop',                     href: '/catalog' },
   { cat: 'Small Animals', img: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=400&q=80&fit=crop', href: '/catalog' },
 ]
 
-const RECENT_ORDERS = [
-  { id: 'PW-8821', date: '14 Jun 2026', items: 24, total: '$3,480.00', status: 'Delivered' },
-  { id: 'PW-8794', date: '28 May 2026', items: 18, total: '$2,190.00', status: 'Delivered' },
-  { id: 'PW-8760', date: '09 May 2026', items: 31, total: '$4,750.00', status: 'Delivered' },
+// Placeholder orders shown when Jiwa is not connected
+const PLACEHOLDER_ORDERS = [
+  { id: 'PW-0001', date: '—', items: '—', total: '—', status: 'Connect Jiwa to view orders' },
 ]
+
+type Order = {
+  id: string
+  date: string
+  items: string | number
+  total: string
+  status: string
+}
+
+async function fetchOrders(email: string): Promise<{ orders: Order[]; source: string }> {
+  if (!process.env.JIWA_API_URL) {
+    return { orders: PLACEHOLDER_ORDERS, source: 'placeholder' }
+  }
+
+  try {
+    const debtor = await jiwa.findDebtorByEmail(email)
+    if (!debtor) return { orders: PLACEHOLDER_ORDERS, source: 'placeholder' }
+
+    const raw = await jiwa.getSalesOrdersByDebtor(debtor.DebtorID, 5)
+    const orders: Order[] = raw.map((o) => ({
+      id:     o.OrderNumber ?? o.SalesOrderID,
+      date:   o.SalesOrderID ?? '—',
+      items:  o.Lines?.length ?? '—',
+      total:  o.TotalAmount != null ? `$${o.TotalAmount.toFixed(2)}` : '—',
+      status: o.Status ?? '—',
+    }))
+    return { orders, source: 'jiwa' }
+  } catch (err) {
+    console.error('[portal] Failed to fetch orders from Jiwa:', err)
+    return { orders: PLACEHOLDER_ORDERS, source: 'placeholder' }
+  }
+}
 
 export default async function PortalPage() {
   const session = await getServerSession(authOptions)
   if (!session) redirect('/login?next=/portal')
 
-  const email = session.user?.email ?? 'Trade Account'
+  const email = session.user?.email ?? ''
+  const { orders, source } = await fetchOrders(email)
 
   return (
     <div className="portal-page">
@@ -56,21 +89,6 @@ export default async function PortalPage() {
           <Link className="btn-fill" href="/catalog">Browse Full Catalogue →</Link>
         </div>
 
-        {/* Stats row */}
-        <div className="portal-stats">
-          {[
-            { num: '$10,420', label: 'Total spent (YTD)' },
-            { num: '3',       label: 'Orders this month' },
-            { num: '6',       label: 'Active categories' },
-            { num: '1 day',   label: 'Avg. delivery time' },
-          ].map((s, i) => (
-            <div key={i} className="portal-stat">
-              <div className="portal-stat-num">{s.num}</div>
-              <div className="portal-stat-lbl">{s.label}</div>
-            </div>
-          ))}
-        </div>
-
         {/* Quick order by category */}
         <section className="portal-section">
           <h2 className="portal-section-hed">Quick Order by Category</h2>
@@ -92,6 +110,11 @@ export default async function PortalPage() {
             <h2 className="portal-section-hed">Recent Orders</h2>
             <Link href="/contact" className="portal-link">Need help with an order?</Link>
           </div>
+          {source === 'placeholder' && (
+            <p style={{ fontSize: '.85rem', color: 'rgba(15,18,9,.45)', marginBottom: '1rem' }}>
+              Live order data will appear here once your Jiwa account is linked.
+            </p>
+          )}
           <div className="portal-orders">
             <div className="portal-orders-head">
               <span>Order ID</span>
@@ -100,13 +123,15 @@ export default async function PortalPage() {
               <span>Total</span>
               <span>Status</span>
             </div>
-            {RECENT_ORDERS.map((o, i) => (
+            {orders.map((o, i) => (
               <div key={i} className="portal-order-row">
                 <span className="portal-order-id">{o.id}</span>
                 <span>{o.date}</span>
-                <span>{o.items} items</span>
+                <span>{typeof o.items === 'number' ? `${o.items} items` : o.items}</span>
                 <span className="portal-order-total">{o.total}</span>
-                <span className="portal-order-status delivered">{o.status}</span>
+                <span className={`portal-order-status ${o.status === 'Delivered' ? 'delivered' : ''}`}>
+                  {o.status}
+                </span>
               </div>
             ))}
           </div>

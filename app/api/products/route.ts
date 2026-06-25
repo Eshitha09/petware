@@ -22,9 +22,6 @@ import { PRODUCTS, CATEGORIES, type CategorySlug } from '@/lib/products'
 
 export const runtime = 'nodejs'
 
-// 5-minute cache — revalidated by Jiwa webhook
-export const revalidate = 300
-
 export async function GET(req: NextRequest) {
   const { searchParams } = req.nextUrl
   const category  = searchParams.get('category') as CategorySlug | null

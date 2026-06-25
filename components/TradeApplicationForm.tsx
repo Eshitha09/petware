@@ -143,7 +143,7 @@ export default function TradeApplicationForm() {
 
       <p className="form-note">
         By submitting you confirm you are a registered NZ business.
-        View our <Link href="#">Privacy Policy</Link>.
+        View our <Link href="/privacy">Privacy Policy</Link>.
       </p>
 
       <button
