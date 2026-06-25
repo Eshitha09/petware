@@ -523,7 +523,7 @@ export const PRODUCTS: Product[] = [
     category: 'reptile',
     subcategory: 'Lighting & Heating',
     description:
-      'Radiant heat projector that penetrates tissue to warm deep muscle — replicating the sun's thermal infrared radiation. Can be used 24/7 without disrupting day-night cycles.',
+      "Radiant heat projector that penetrates tissue to warm deep muscle — replicating the sun's thermal infrared radiation. Can be used 24/7 without disrupting day-night cycles.",
     specs: ['50W output', 'Penetrates muscle tissue', 'Safe 24/7 use', 'ES/E27 fitting', 'MOQ: 6'],
     img: 'https://images.unsplash.com/photo-1591824438708-ce405f36ba3d?w=800&q=85&fit=crop',
     featured: true,

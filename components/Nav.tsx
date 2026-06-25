@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 
 const NAV_LINKS = [
   { href: '/catalog',       label: 'Catalog' },
@@ -11,7 +12,8 @@ const NAV_LINKS = [
 ]
 
 export default function Nav() {
-  const pathname = usePathname()
+  const pathname        = usePathname()
+  const { data: session } = useSession()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen]         = useState(false)
 
@@ -50,7 +52,9 @@ export default function Nav() {
 
         <div className="nav-right">
           <a className="nav-phone" href="tel:0800800135">0800 800 135</a>
-          <Link className="nav-cta" href="/login">Trade Login</Link>
+          <Link className="nav-cta" href={session ? '/portal' : '/login'}>
+            {session ? 'My Portal' : 'Trade Login'}
+          </Link>
           {/* Hamburger — mobile only */}
           <button
             className={`nav-burger${open ? ' open' : ''}`}
@@ -94,8 +98,8 @@ export default function Nav() {
           ))}
         </ul>
         <div className="nav-drawer-footer">
-          <Link className="btn-fill" href="/login" style={{ width: '100%', textAlign: 'center' }}>
-            Trade Login
+          <Link className="btn-fill" href={session ? '/portal' : '/login'} style={{ width: '100%', textAlign: 'center' }}>
+            {session ? 'My Portal' : 'Trade Login'}
           </Link>
           <a href="tel:0800800135" className="nav-drawer-phone">0800 800 135</a>
         </div>

@@ -71,6 +71,11 @@ export default async function PortalPage() {
       {/* ── PORTAL NAV ── */}
       <header className="portal-header">
         <Link href="/" className="portal-logo">Petware</Link>
+        <nav className="portal-subnav">
+          <Link href="/portal" className="active">Dashboard</Link>
+          <Link href="/portal/catalog">Catalogue</Link>
+          <Link href="/portal/orders">Orders</Link>
+        </nav>
         <div className="portal-header-right">
           <span className="portal-account-email">{email}</span>
           <PortalLogout />

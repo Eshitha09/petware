@@ -138,11 +138,7 @@ export default async function PortalCatalogPage({
                   ))}
                 </ul>
                 <div className="portal-product-footer">
-                  {jiwaConnected ? (
-                    <span className="portal-price-live">Loading price…</span>
-                  ) : (
-                    <span className="portal-price-contact">Contact for pricing</span>
-                  )}
+                  <span className="portal-price-contact">Contact for pricing</span>
                   <a
                     href={`mailto:accounts@petware.co.nz?subject=Order Enquiry — ${product.sku}`}
                     className="portal-order-btn"

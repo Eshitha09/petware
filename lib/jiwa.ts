@@ -180,7 +180,7 @@ async function jiwaFetch<T>(
 async function getInventoryItems(): Promise<JiwaInventoryItem[]> {
   const data = await jiwaFetch<{ Results: JiwaInventoryItem[] }>(
     '/api/InventoryItems?IsActive=true&IsWebVisible=true&Fields=InventoryItemID,ItemCode,Description,SalesDescription,UnitPrice,QuantityOnHand,ReorderPoint,CategoryID,CategoryDescription,ImageURL,Weight,UnitOfMeasure',
-    { next: { revalidate: 300, tags: ['jiwa-inventory'] } } as RequestInit
+    { next: { revalidate: 300, tags: ['products'] } } as RequestInit
   )
   return data.Results ?? []
 }

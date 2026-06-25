@@ -51,7 +51,7 @@ export default function CategoryPage({ params }: Props) {
   }
 
   // Group products by subcategory
-  const subcategories = [...new Set(products.map((p) => p.subcategory))]
+  const subcategories = Array.from(new Set(products.map((p) => p.subcategory)))
 
   return (
     <>
