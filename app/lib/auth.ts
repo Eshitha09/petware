@@ -1,11 +1,14 @@
 import type { AuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import bcrypt from 'bcryptjs'
 
-// Demo trade accounts — replace with a real database lookup in production
+// Demo trade accounts — emails and bcrypt hashes loaded from env vars.
+// To generate a new hash: node -e "console.log(require('bcryptjs').hashSync('yourpassword', 12))"
+// Store hashes in .env.local (never commit plaintext passwords).
 const DEMO_ACCOUNTS: Record<string, string> = {
-  'trade@petware.co.nz': '***REMOVED***',
-  'demo@petware.co.nz': '***REMOVED***',
+  [process.env.DEMO_EMAIL_1 ?? '']: process.env.DEMO_HASH_1 ?? '',
+  [process.env.DEMO_EMAIL_2 ?? '']: process.env.DEMO_HASH_2 ?? '',
 }
 
 export const authOptions: AuthOptions = {
@@ -30,9 +33,11 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
-        const email  = credentials.email.trim().toLowerCase()
-        const stored = DEMO_ACCOUNTS[email]
-        if (!stored || stored !== credentials.password) return null
+        const email = credentials.email.trim().toLowerCase()
+        const hash  = DEMO_ACCOUNTS[email]
+        if (!hash) return null
+        const valid = await bcrypt.compare(credentials.password, hash)
+        if (!valid) return null
         return { id: email, email, name: email }
       },
     }),
