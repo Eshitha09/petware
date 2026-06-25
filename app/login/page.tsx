@@ -24,12 +24,6 @@ export default function LoginPage() {
           </Suspense>
         </div>
 
-        {/* Demo notice */}
-        <div className="login-demo-notice">
-          <p>Demo credentials</p>
-          <p>Email: <span>trade@petware.co.nz</span></p>
-          <p>Password: <span>***REMOVED***</span></p>
-        </div>
       </div>
     </div>
   )
